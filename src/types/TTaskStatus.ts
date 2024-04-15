@@ -1,1 +1,0 @@
-export type TTaskStatus = 'to_do' | 'in_progres' | 'done'; 
