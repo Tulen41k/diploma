@@ -1,6 +1,6 @@
 import { types } from "mobx-state-tree";
 
-export const homePage = types.model('homePage')
+export const rulesPage = types.model('editPage')
 .volatile(() => ({
 	// здесь будут модели компонентов страницы
 

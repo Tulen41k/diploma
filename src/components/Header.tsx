@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
-import { Link, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
 	header: {
@@ -7,17 +7,20 @@ const useStyles = makeStyles(() => ({
 		position: 'fixed',
 		top: 0,
 		left: 0,
-		height: 60,
-		display: 'flex',
-		alignItems: 'center',
-		padding: 15,
-		gap: 15,
+		height: 40,
+		backgroundColor: "#E6E6FA"
 	},
+	h1: {
+		textAlign: "center"
+	}
 }));
 
 export const Header: React.FC = () => {
 	const styles = useStyles();
-	return <Paper className={styles.header}>
-		Бункер
-	</Paper>;
+	return (
+		<Paper className={styles.header}>
+			<h1 className={styles.h1}>Бункер</h1>
+		</Paper>
+	)
+		
 };

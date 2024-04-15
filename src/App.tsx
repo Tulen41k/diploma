@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import './styles.css';
 import { Header } from "./components/Header";
 import { makeStyles } from "@material-ui/styles";
 import { HomePage } from "./modules/ homePage";
+import { editPage } from "./modules/editPage/routes";
+import { rulesPage } from "./modules/rulesPage/routes";
 
 const useStyles = makeStyles(() => ({
 	container: {
@@ -10,19 +12,27 @@ const useStyles = makeStyles(() => ({
 	}
 }))
 
+const Layout = () => {
+	return (
+		<div>
+			<Header/>
+			<Outlet/>
+		</div>
+	)
+}
+
 function App() {
 	const styles = useStyles();
 	return (
-		<>
-		<Header />
-		<div className={styles.container}>
-			<BrowserRouter>
-				<Routes>
-					<Route path="*" element={< HomePage />} />			
-				</Routes>
-			</BrowserRouter>
-		</div>
-		</>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Layout/>}>
+					{editPage()}
+					{rulesPage()}
+					<Route index element={<HomePage/>} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
   )
 }
 
