@@ -11,6 +11,11 @@ const VMNumberTextField = VMTextField.named('VMNamedTextField')
 			self.setHelperText('Можно вводить только числа');
 			return;
 		}
+		if (Number(value) > 15) {
+			self.setIsError(true);
+			self.setHelperText('Кажется, вы ввели слишком большое число (больше 15)');
+			return;
+		}
 		self.setIsError(false);
 		self.setHelperText('');
 		self.setValue(value);
