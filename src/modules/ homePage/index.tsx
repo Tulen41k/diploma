@@ -44,7 +44,7 @@ export const HomePage: React.FC = observer(() => {
     return (
         <Paper className={styles.container} elevation={3}>
             <Paper className={styles.btn} elevation={2}>
-                <Link className={styles.link} href={'/edit'}>Начать игру</Link>
+                <Link className={styles.link} href={'/create'}>Начать игру</Link>
             </Paper>
             <Paper className={styles.btn} elevation={2}>
                 <Link className={styles.link} href={'/edit'}>Редактировать характеристики</Link>

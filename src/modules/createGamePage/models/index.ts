@@ -64,6 +64,10 @@ export const createGamePage = types.model('createGamePage')
 		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true)})
 	}
 }))
+
+.actions((self) => ({
+	
+}))
 .actions(() => ({
 	start() {
 		// здесь логика того что будет происходить при открытии страницы

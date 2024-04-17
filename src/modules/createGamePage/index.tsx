@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { createGamePage } from "./models";
-import { Paper, Link} from "@mui/material";
+import { Paper, Link, Typography} from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
 import VTextField from "../../mvvm/TextField/VTextField";
@@ -27,7 +27,16 @@ const useStyles = makeStyles(() => ({
         width: "70%",
         marginLeft: "auto",
         marginRight: "auto",
-    }
+    },
+    link: {
+        width: "30%",
+        height: "50px",
+        backgroundColor: "#B0C4DE",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-around",
+    },
 }));
 
 
@@ -46,7 +55,7 @@ export const CreateGamePage: React.FC = observer(() => {
                 {isForm
                     ? <>
                         <div className={styles.container}>
-                        <h1>Введите количество игроков и количество карт на человека</h1>
+                        <Typography variant="h4">Введите количество игроков и карт</Typography>
                         <div>Оптимальное количсетво игроков от 5 до 12 человек</div>
                         <VTextField model={playersField}/>
                         <div>Оптимальное количество дополнительных карт на игрока</div>
@@ -76,6 +85,9 @@ export const CreateGamePage: React.FC = observer(() => {
                     : <></>
                 }
             </div>
+            <Paper className={styles.link}>
+                <Link href={'/'}>Назад</Link>
+            </Paper>
         </Paper>
     );
 }
