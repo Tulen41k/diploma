@@ -3,6 +3,7 @@ import './styles.css';
 import { Header } from "./components/Header";
 import { makeStyles } from "@material-ui/styles";
 import { HomePage } from "./modules/ homePage";
+import { createGamePage } from "./modules/createGamePage/routes";
 import { editPage } from "./modules/editPage/routes";
 import { rulesPage } from "./modules/rulesPage/routes";
 
@@ -29,6 +30,7 @@ function App() {
 				<Route path="/" element={<Layout/>}>
 					{editPage()}
 					{rulesPage()}
+					{createGamePage()}
 					<Route index element={<HomePage/>} />
 				</Route>
 			</Routes>
