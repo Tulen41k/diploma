@@ -2,7 +2,6 @@ import { getData } from "../../../data/getData";
 import { TPlayer } from "../../../types/TPlayer";
 
 const getRandomItem = <T>(array: T[]): T => {
-    console.log(array);
     const randomItem = Math.floor(Math.random() * array.length);
     return array[randomItem];
 }

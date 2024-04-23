@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { createGamePage } from "./models";
-import { Paper, Link, Typography, TextField} from "@mui/material";
+import { Paper, Link, Typography, TextField, Button} from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
 import VTextField from "../../mvvm/TextField/VTextField";
@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
 
 
 export const CreateGamePage: React.FC = observer(() => {
-    const { start, playersField, cardField, createBtn, isForm, isName, isDownload, gameData, readyBtn} = createGamePage;
+    const { start, playersField, cardField, createBtn, isForm, isName, isDownload, gameData, readyBtn, downloadBtn} = createGamePage;
     useEffect(() => {
         start();
     }, []);
@@ -61,9 +61,6 @@ export const CreateGamePage: React.FC = observer(() => {
         setTextFieldModels(updatedTextFieldModels);
         localStorage.setItem('names', JSON.stringify(textFieldModels));
     }
-
-    console.log(textFieldModels)
-
 
     return (
         <Paper className={styles.global} elevation={3}>
@@ -89,7 +86,7 @@ export const CreateGamePage: React.FC = observer(() => {
                 {isName
                     ? <>
                         <div className={styles.container}>
-                            <h1>Введите имена игроков</h1>
+                            <Typography variant="h4">Введите имена игроков</Typography>
                             {textFieldModels.map((textFieldModel, index) => (
                                 <TextField
                                 key={index}
@@ -105,6 +102,10 @@ export const CreateGamePage: React.FC = observer(() => {
                 }
                 {isDownload
                     ? <>
+                    <div className={styles.container}>
+                        <Typography variant="h4">Скачайте характеристики игроков</Typography>
+                        <VButton model={downloadBtn}/>
+                    </div>
                     </>
                     : <></>
                 }

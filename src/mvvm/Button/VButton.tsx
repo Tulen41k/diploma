@@ -8,13 +8,14 @@ type props = {
 }
 
 const VButton: React.FC<props> = ({model, className}): JSX.Element => {
-	const { onClick, isDisabled, text } = model;
+	const { onClick, isDisabled, text, key } = model;
 	return (
 			<Button
 				className={className}
 				onClick={onClick} 
 				disabled={isDisabled} 
 				variant="contained"
+				key={key}
 			>{text}</Button>
 		)
 };

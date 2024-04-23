@@ -24,6 +24,7 @@ export const getData = (value: string) => {
 			case "hobby":
 				raw = localStorage.getItem('hobby');
 				raw = JSON.parse(raw);
+				break;
 			case "pfact":
 				raw = localStorage.getItem('pfact');
 				raw = JSON.parse(raw);
@@ -35,9 +36,15 @@ export const getData = (value: string) => {
 			case "dop":
 				raw = localStorage.getItem('dop');
 				raw = JSON.parse(raw);
+				break;
 			case "names":
 				raw = localStorage.getItem('names');
 				raw = JSON.parse(raw);
+				break;
+			case "players":
+				raw = localStorage.getItem('players');
+				raw = JSON.parse(raw);
+				break;
 			default:
 				break;
 		}

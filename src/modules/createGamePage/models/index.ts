@@ -6,6 +6,8 @@ import { TGameData } from "../../../types/TGameData";
 import { TPlayer } from "../../../types/TPlayer";
 import { createArrayPlayers } from "./createArrayPlayers";
 import { getData } from "../../../data/getData";
+import { createDataForFiles } from "./createDataForFile";
+import { downloadFile } from "./downloadFile";
 
 export const createGamePage = types.model('createGamePage')
 .volatile(() => ({
@@ -39,6 +41,10 @@ export const createGamePage = types.model('createGamePage')
 		label: "Имя игрока"
 	}),
 
+	downloadBtn: VMButton.create({
+		text: 'Скачать характеристики'
+	})
+
 
 }))
 .views((self) => ({
@@ -62,18 +68,31 @@ export const createGamePage = types.model('createGamePage')
 		self.isDownload = value
 	},
 	async addPlayers() {
-		let raw = getData('names');
+		const raw = getData('names');
 		console.log(raw);
-		const players = createArrayPlayers(raw, self.gameData.players);
+		const players = createArrayPlayers(raw);
 		localStorage.setItem('players', JSON.stringify(players));
 	},
+
+	async download() {
+		const players = getData('players');
+		for (let i = 0; i < players.length; i++) {
+			const text = createDataForFiles(i);
+			const filename = players[i].name;
+			console.log(text);
+			console.log(typeof text);
+			console.log(filename);
+			downloadFile(text.fileData, filename);
+		}
+	}
 }))
 
 .actions((self) => ({
 	// здесь другие методы страницы
 	afterCreate(){
 		self.createBtn.setOnClick(() => {self.setisForm(false), self.setISName(true), console.log(self.gameData)}),
-		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true), self.addPlayers()})
+		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true), self.addPlayers()}),
+		self.downloadBtn.setOnClick(() => {self.download()})
 	}
 }))
 

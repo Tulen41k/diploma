@@ -5,6 +5,7 @@ export type TVMButtonInstance = Instance<typeof VMButton>;
 const VMButton = types.model('VMButton', {
 	text: '',
 	isDisabled: false,
+	key: 0,
 })
 .actions(() => ({
 	onClick() {},

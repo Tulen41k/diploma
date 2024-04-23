@@ -20,13 +20,13 @@ export const putData = (page: string, value: string) => {
             localStorage.setItem('phobia', JSON.stringify(phobia));
             break;
         case "baggage":
-            raw = localStorage.getItem('bagage');
+            raw = localStorage.getItem('baggage');
             const baggage = JSON.parse(raw);
             baggage.push(value);
             localStorage.setItem('baggage', JSON.stringify(baggage));
             break;
         case "character":
-            raw = localStorage.getItem('chatacter');
+            raw = localStorage.getItem('character');
             const character = JSON.parse(raw);
             character.push(value);
             localStorage.setItem('character', JSON.stringify(character));
