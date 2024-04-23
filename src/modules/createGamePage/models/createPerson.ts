@@ -7,8 +7,9 @@ const getRandomItem = <T>(array: T[]): T => {
 }
 
 const getCards = (cards: number) => {
-    const dopCard = Array.from({length: cards}, () => getRandomItem(getData('dop')));
-    return dopCard;
+    const dop = Array.from({length: cards}, () => getRandomItem(getData('dop')));
+    console.log(dop);
+    return dop;
 }
 
 
@@ -31,7 +32,7 @@ export const createPerson = (name: string, cards: number): TPlayer => {
         hobby: getRandomItem(getData('hobby')),
         pfact: getRandomItem(getData('pfact')),
         nfact: getRandomItem(getData('nfact')),
-        dopCard: getCards(cards)
+        dop: getCards(cards)
     }
 
     return newPlayer;

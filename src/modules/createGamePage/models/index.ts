@@ -70,7 +70,7 @@ export const createGamePage = types.model('createGamePage')
 	async addPlayers() {
 		const raw = getData('names');
 		console.log(raw);
-		const players = createArrayPlayers(raw);
+		const players = createArrayPlayers(raw, self.gameData.cards);
 		localStorage.setItem('players', JSON.stringify(players));
 	},
 

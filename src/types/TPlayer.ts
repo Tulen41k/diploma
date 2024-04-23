@@ -14,5 +14,5 @@ export type TPlayer = {
     hobby: string;
     pfact: string;
     nfact: string;
-    dopCard: TDop[]
+    dop: TDop[]
 }
