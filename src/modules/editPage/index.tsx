@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { editPage } from "./models";
-import { Paper, Link, Typography} from "@mui/material";
+import { Paper, Link, Typography, Select, MenuItem} from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { makeStyles } from "@material-ui/styles";
 import VButton from "../../mvvm/Button/VButton";
+import { baggage, character, health, hobby, nfact, pfact, phobia, professions } from "../../data/data";
+import VTextField from "../../mvvm/TextField/VTextField";
+import VSelect from "../../mvvm/Select/VSelect";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -51,7 +54,7 @@ const useStyles = makeStyles(() => ({
 
 
 export const EditPage: React.FC = observer(() => {
-    const {start, professionBtn, healfBtn, phobiaBtn, baggageBtn, chatacterBtn, hobbyBtn, pfactBtn, nfactBtn, isHome, returnBtn, isPage} = editPage;
+    const {start, isAdd, deleteBtn, saveBtn, addBtn, professionBtn, healfBtn, phobiaBtn, baggageBtn, chatacterBtn, hobbyBtn, pfactBtn, nfactBtn, isHome, returnBtn, isPage, addField, namePage, readSelect} = editPage;
     useEffect(() => {
         start();
     }, []);
@@ -84,8 +87,17 @@ export const EditPage: React.FC = observer(() => {
                 : <>
                     <div className={styles.container}>
                         <Typography variant="h4">
-                        {isPage}
+                        {namePage}
                         </Typography>
+                        <VSelect className={styles.select} model={readSelect}/>
+                        <VButton model={deleteBtn}/>
+                        {isAdd
+                            ? <>
+                            <VTextField className={styles.select} model={addField}/>
+                            <VButton model={saveBtn}/>
+                            </>
+                        : <VButton model={addBtn}/>
+                        }
                         <VButton model={returnBtn}/>
                     </div>
                 </>

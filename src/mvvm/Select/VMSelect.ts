@@ -21,6 +21,16 @@ const VMSelect = types.model('VMSelect', {
 				option.setIsSelected(false);
 			}
 		})
+	},
+	setOptions(value: string[]) {
+		self.options = value.map((count) =>
+		MSelectOption.create({
+			label: count,
+			value: count,
+			isSelected: false,
+			isDisabled: false
+		})
+		)
 	}
 }))
 export default VMSelect;

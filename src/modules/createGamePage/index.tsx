@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { createGamePage } from "./models";
-import { Paper, Link, Typography} from "@mui/material";
+import { Paper, Link, Typography, TextField} from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
 import VTextField from "../../mvvm/TextField/VTextField";
@@ -8,6 +8,8 @@ import VButton from "../../mvvm/Button/VButton";
 import React from "react";
 import { TGameData } from "../../types/TGameData";
 import { useState } from "react";
+import { createTextFieldModels } from "./models/createTextFieldModels";
+import { createArrayPlayers } from "./models/createArrayPlayers";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -41,12 +43,26 @@ const useStyles = makeStyles(() => ({
 
 
 export const CreateGamePage: React.FC = observer(() => {
-    const { start, playersField, cardField, createBtn, isForm, isName, isDownload, gameData, nField, readyBtn} = createGamePage;
+    const { start, playersField, cardField, createBtn, isForm, isName, isDownload, gameData, readyBtn} = createGamePage;
     useEffect(() => {
         start();
     }, []);
 
     const styles = useStyles();
+    const [textFieldModels, setTextFieldModels] = useState(createTextFieldModels(gameData));
+
+    useEffect(() => {
+        setTextFieldModels(createTextFieldModels(gameData));
+    }, [gameData]);
+
+    const handleInputChange = (index: number, value: string) => {
+        const updatedTextFieldModels = [...textFieldModels];
+        updatedTextFieldModels[index].value = value;
+        setTextFieldModels(updatedTextFieldModels);
+        localStorage.setItem('names', JSON.stringify(textFieldModels));
+    }
+
+    console.log(textFieldModels)
 
 
     return (
@@ -74,6 +90,14 @@ export const CreateGamePage: React.FC = observer(() => {
                     ? <>
                         <div className={styles.container}>
                             <h1>Введите имена игроков</h1>
+                            {textFieldModels.map((textFieldModel, index) => (
+                                <TextField
+                                key={index}
+                                label='Имя игрока'
+                                value={textFieldModel.value}
+                                onChange={(e) => handleInputChange(index, e.target.value)}
+                                />
+                            ))}
                             <VButton model={readyBtn}/>
                         </div>
                     </>

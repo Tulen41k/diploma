@@ -3,6 +3,9 @@ import VMNumberTextField from "../../../mvvm/TextField/VMNumberTextField";
 import VMButton from "../../../mvvm/Button/VMButton";
 import VMTextField from "../../../mvvm/TextField/VMTextField";
 import { TGameData } from "../../../types/TGameData";
+import { TPlayer } from "../../../types/TPlayer";
+import { createArrayPlayers } from "./createArrayPlayers";
+import { getData } from "../../../data/getData";
 
 export const createGamePage = types.model('createGamePage')
 .volatile(() => ({
@@ -18,6 +21,8 @@ export const createGamePage = types.model('createGamePage')
 		label: "Количество игроков"
 	}),
 
+	playersNames: [] as string[],
+
 	cardField: VMNumberTextField.create({
 		label: "Количество доп карт на игрока"
 	}),
@@ -30,9 +35,10 @@ export const createGamePage = types.model('createGamePage')
 		text: "Далее"
 	}),
 
-	nField: VMTextField.create({
+	nameField: VMTextField.create({
 		label: "Имя игрока"
-	})
+	}),
+
 
 }))
 .views((self) => ({
@@ -54,14 +60,20 @@ export const createGamePage = types.model('createGamePage')
 
 	setISDownload(value: boolean) {
 		self.isDownload = value
-	}
+	},
+	async addPlayers() {
+		let raw = getData('names');
+		console.log(raw);
+		const players = createArrayPlayers(raw, self.gameData.players);
+		localStorage.setItem('players', JSON.stringify(players));
+	},
 }))
 
 .actions((self) => ({
 	// здесь другие методы страницы
 	afterCreate(){
 		self.createBtn.setOnClick(() => {self.setisForm(false), self.setISName(true), console.log(self.gameData)}),
-		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true)})
+		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true), self.addPlayers()})
 	}
 }))
 

@@ -13,7 +13,7 @@ export const homePage = types.model('homePage')
 }))
 .actions(() => ({
 	start() {
-		// здесь логика того что будет происходить при открытии страницы
+		localStorage.removeItem('players');
 	},
 }))
 .create({});

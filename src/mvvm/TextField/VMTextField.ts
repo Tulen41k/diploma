@@ -4,6 +4,7 @@ import { TextFieldVariants } from "@mui/material";
 export type TVMTextFieldInstance = Instance<typeof VMTextField>;
 
 const VMTextField = types.model('VMTextField', {
+	key: types.optional(types.number, 0),
 	label: types.optional(types.string, ''),
 	value: types.optional(types.string, ''),
 	isError: types.optional(types.boolean, false),

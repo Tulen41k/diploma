@@ -926,3 +926,13 @@ export const dop: string[] = [
     "Изнасиловать игрока слева (этот игрок теряет право голоса на 1 круг поскольку теперь опущен)", 
     "Возможность окрыть любую характеристику одному игроку"
 ]
+
+//localStorage.setItem('professions', JSON.stringify(professions))
+//localStorage.setItem('health', JSON.stringify(health))
+//localStorage.setItem('phobia', JSON.stringify(phobia))
+//localStorage.setItem('baggage', JSON.stringify(baggage))
+//localStorage.setItem('character', JSON.stringify(character))
+//localStorage.setItem('hobby', JSON.stringify(hobby))
+//localStorage.setItem('pfact', JSON.stringify(pfact))
+//localStorage.setItem('nfact', JSON.stringify(nfact))
+//localStorage.setItem('dop', JSON.stringify(dop))
