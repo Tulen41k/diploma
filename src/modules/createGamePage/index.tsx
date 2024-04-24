@@ -106,6 +106,7 @@ export const CreateGamePage: React.FC = observer(() => {
                         <Typography variant="h4">Скачайте характеристики игроков</Typography>
                         <VButton model={downloadBtn}/>
                     </div>
+                    <Link href={'game'}>Начать игру</Link>
                     </>
                     : <></>
                 }

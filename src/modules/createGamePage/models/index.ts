@@ -53,7 +53,8 @@ export const createGamePage = types.model('createGamePage')
 			players: Number (self.playersField.value),
 			cards: Number (self.cardField.value)
 		}
-	}
+	},
+	
 }))
 .actions((self) => ({
 	setisForm(value: boolean) {
@@ -84,6 +85,7 @@ export const createGamePage = types.model('createGamePage')
 			console.log(filename);
 			downloadFile(text.fileData, filename);
 		}
+		localStorage.setItem('gameData', JSON.stringify(self.gameData));
 	}
 }))
 

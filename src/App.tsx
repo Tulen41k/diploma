@@ -6,6 +6,7 @@ import { HomePage } from "./modules/ homePage";
 import { createGamePage } from "./modules/createGamePage/routes";
 import { editPage } from "./modules/editPage/routes";
 import { rulesPage } from "./modules/rulesPage/routes";
+import { gamePage } from "./modules/gamePage/routes";
 
 const useStyles = makeStyles(() => ({
 	container: {
@@ -31,6 +32,7 @@ function App() {
 					{editPage()}
 					{rulesPage()}
 					{createGamePage()}
+					{gamePage()}
 					<Route index element={<HomePage/>} />
 				</Route>
 			</Routes>

@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
 
 
 export const EditPage: React.FC = observer(() => {
-    const {start, isAdd, deleteBtn, saveBtn, addBtn, professionBtn, healfBtn, phobiaBtn, baggageBtn, chatacterBtn, hobbyBtn, pfactBtn, nfactBtn, isHome, returnBtn, isPage, addField, namePage, readSelect} = editPage;
+    const {start, isAdd, isDelete, saveDeleteBtn, deleteSelect, deleteBtn, saveBtn, addBtn, professionBtn, healfBtn, phobiaBtn, baggageBtn, chatacterBtn, hobbyBtn, pfactBtn, nfactBtn, isHome, returnBtn, isPage, addField, namePage, readSelect} = editPage;
     useEffect(() => {
         start();
     }, []);
@@ -90,7 +90,13 @@ export const EditPage: React.FC = observer(() => {
                         {namePage}
                         </Typography>
                         <VSelect className={styles.select} model={readSelect}/>
-                        <VButton model={deleteBtn}/>
+                        {isDelete
+                            ? <>
+                            <VSelect model={deleteSelect}/>
+                            <VButton model={saveDeleteBtn}/>
+                            </>
+                            : <VButton model={deleteBtn}/>
+                        }
                         {isAdd
                             ? <>
                             <VTextField className={styles.select} model={addField}/>

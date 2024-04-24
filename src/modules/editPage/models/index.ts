@@ -6,6 +6,7 @@ import { string } from "mobx-state-tree/dist/internal";
 import { baggage, character, health, hobby, nfact, pfact, phobia, professions } from "../../../data/data";
 import { getData } from "../../../data/getData";
 import { putData } from "../../../data/putData";
+import { deleteData } from "../../../data/deleteData";
 
 export const editPage = types.model('editPage')
 .volatile(() => ({
@@ -13,6 +14,8 @@ export const editPage = types.model('editPage')
 	isHome: true,
 
 	isAdd: false,
+
+	isDelete: false,
 
 	isPage: "",
 
@@ -74,6 +77,15 @@ export const editPage = types.model('editPage')
 
 	deleteBtn: VMButton.create({
 		text: "Удалить характеристику"
+	}),
+
+	saveDeleteBtn: VMButton.create({
+		text: "Удалить"
+	}),
+
+	deleteSelect:VMSelect.create({
+		label: "Выберите характеристику",
+		options: []
 	})
 }))
 .views(() => ({
@@ -92,6 +104,9 @@ export const editPage = types.model('editPage')
 	},
 	setisAdd(value:boolean) {
 		self.isAdd = value
+	},
+	setisDelete(value: boolean) {
+		self.isDelete = value
 	}
 }))
 
@@ -108,50 +123,13 @@ export const editPage = types.model('editPage')
 	},
 
 	async deleteValue (value: string) {
-		switch (self.isPage) {
-			case "profession":
-				raw = localStorage.getItem('professions'); 
-				const professions = JSON.parse(raw);
-				localStorage.setItem('professions', JSON.stringify(professions.filter(el => el !== 'value')));
-				break;
-			case "health":
-				raw = localStorage.getItem('health');
-				const health = JSON.parse(raw);
-				localStorage.setItem('health',JSON.stringify(health.filter(el => el !== 'value')))
-				break;
-			case "phobia":
-				raw = localStorage.getItem('phobia');
-				const phobia = JSON.parse(raw);
-				localStorage.setItem('phobia', JSON.stringify(phobia.filter(el => el !== 'value')));
-				break;
-			case "baggage":
-				raw = localStorage.getItem('bagage');
-				const baggage = JSON.parse(raw);
-				localStorage.setItem('baggage', JSON.stringify(baggage.filter(el => el !== 'value')));
-				break;
-			case "character":
-				raw = localStorage.getItem('chatacter');
-				const character = JSON.parse(raw);
-				localStorage.setItem('character', JSON.stringify(character.filter(el => el !== 'value')));
-				break;
-			case "hobby":
-				raw = localStorage.getItem('hobby');
-				const hobby = JSON.parse(raw);
-				localStorage.setItem('hobby', JSON.stringify(hobby.filter(el => el !== 'value')));
-				break;
-			case "pfact":
-				raw = localStorage.getItem('pfact');
-				const pfact = JSON.parse(raw);
-				localStorage.setItem('pfact', JSON.stringify(pfact.filter(el => el !== 'value')));
-				break;
-			case "nfact":
-				raw = localStorage.getItem('nfact');
-				const nfact = JSON.parse(raw);
-				localStorage.setItem('nfact', JSON.stringify(nfact.filter(el => el !== 'value')));
-				break;
-			default:
-				break;
-		}
+		console.log(value);
+		deleteData(self.isPage, value);
+	},
+
+	async select() {
+		const data = getData(self.isPage);
+		self.deleteSelect.setOptions(data);
 	}
 }))
 
@@ -168,7 +146,8 @@ export const editPage = types.model('editPage')
 		self.returnBtn.setOnClick(() => {self.setisHome(true)})
 		self.addBtn.setOnClick(() => {self.setisAdd(true)})
 		self.saveBtn.setOnClick(() => {self.setisAdd(false), self.addValue(self.addField.value), console.log(self.addField.value), self.fetchSelect()})
-		self.deleteBtn.setOnClick(() => {self.deleteValue(self.readSelect.selected.value)})
+		self.deleteBtn.setOnClick(() => {self.select(), self.setisDelete(true)})
+		self.saveDeleteBtn.setOnClick(() => {self.deleteValue(self.deleteSelect.selected.value), self.setisDelete(false)})
 	}
 }))
 .actions(() => ({
