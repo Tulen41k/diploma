@@ -38,6 +38,9 @@ const useStyles = makeStyles(() => ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-around",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: "10px"
     },
 }));
 
@@ -105,8 +108,9 @@ export const CreateGamePage: React.FC = observer(() => {
                     <div className={styles.container}>
                         <Typography variant="h4">Скачайте характеристики игроков</Typography>
                         <VButton model={downloadBtn}/>
+                        <Link className={styles.link} href={'game'}>Начать игру</Link>
                     </div>
-                    <Link href={'game'}>Начать игру</Link>
+                   
                     </>
                     : <></>
                 }
