@@ -49,6 +49,14 @@ export const getData = (value: string) => {
 				raw = localStorage.getItem('gameData');
 				raw = JSON.parse(raw);
 				break;
+			case "problem":
+				raw = localStorage.getItem('problem');
+				raw = JSON.parse(raw);
+				break;
+			case "kollPlace":
+				raw = localStorage.getItem('kollPlace');
+				raw = JSON.parse(raw);
+				break;
 			default:
 				break;
 		}

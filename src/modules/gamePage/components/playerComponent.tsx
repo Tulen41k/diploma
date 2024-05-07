@@ -1,6 +1,5 @@
 import { Paper, Typography } from "@mui/material";
 import React, { FunctionComponent, useState } from "react";
-import { getData } from "../../../data/getData";
 import { TPlayer } from "../../../types/TPlayer";
 import { makeStyles } from "@material-ui/styles";
 import DopCards from "./createDopCards";
@@ -133,12 +132,9 @@ const PlayerCard: React.FC<{player: TPlayer}> = ({player}) => {
 
 
 
-
-
-
     return (
         <Paper className={styles.container}>
-            <Paper className={styles.value}>{player.name}</Paper>
+            <Typography variant="h5" className={styles.value}>{player.name}</Typography>
             <Paper className={styles.value} onClick={toggleShowAge}>
                 {showAge ? 'Возраст: ' + player.age : 'Возраст'}
             </Paper>

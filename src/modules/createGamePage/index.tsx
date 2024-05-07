@@ -10,6 +10,7 @@ import { TGameData } from "../../types/TGameData";
 import { useState } from "react";
 import { createTextFieldModels } from "./models/createTextFieldModels";
 import { createArrayPlayers } from "./models/createArrayPlayers";
+import { ProblemDescriprion } from "./models/problemDescription";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -46,7 +47,7 @@ const useStyles = makeStyles(() => ({
 
 
 export const CreateGamePage: React.FC = observer(() => {
-    const { start, playersField, cardField, createBtn, isForm, isName, isDownload, gameData, readyBtn, downloadBtn} = createGamePage;
+    const { start, playersField, cardField, createBtn, isForm, isName, isDownload, gameData, readyBtn, downloadBtn, isProblem, problemBtn} = createGamePage;
     useEffect(() => {
         start();
     }, []);
@@ -72,7 +73,7 @@ export const CreateGamePage: React.FC = observer(() => {
                     ? <>
                         <div className={styles.container}>
                         <Typography variant="h4">Введите количество игроков и карт</Typography>
-                        <div>Оптимальное количсетво игроков от 5 до 12 человек</div>
+                        <div>Оптимальное количество игроков от 5 до 12 человек</div>
                         <VTextField model={playersField}/>
                         <div>Оптимальное количество дополнительных карт на игрока</div>
                         <ul>
@@ -108,11 +109,21 @@ export const CreateGamePage: React.FC = observer(() => {
                     <div className={styles.container}>
                         <Typography variant="h4">Скачайте характеристики игроков</Typography>
                         <VButton model={downloadBtn}/>
-                        <Link className={styles.link} href={'game'}>Начать игру</Link>
+                        <VButton model={problemBtn}/>
                     </div>
-                   
                     </>
                     : <></>
+                }
+                {isProblem
+                    ? <>
+                    <div className={styles.container}>
+                        <Typography variant="h4">Описание катастрофы</Typography>
+                        <ProblemDescriprion/>
+                        <Link className={styles.link} href={'game'}>Начать игру</Link>
+                    </div>
+                    </>
+                    : <></>
+
                 }
             </div>
             <Paper className={styles.link}>

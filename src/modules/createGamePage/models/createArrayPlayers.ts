@@ -9,6 +9,5 @@ export const createArrayPlayers = (models: TTextFieldModel[], cards: number): TP
         const player = createPerson(models[i].value, cards);
         players.push(player);
     }
-console.log(players);
     return players;
 }

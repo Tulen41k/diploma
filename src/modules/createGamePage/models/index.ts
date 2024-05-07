@@ -8,6 +8,7 @@ import { createArrayPlayers } from "./createArrayPlayers";
 import { getData } from "../../../data/getData";
 import { createDataForFiles } from "./createDataForFile";
 import { downloadFile } from "./downloadFile";
+import { gamePage } from "../../gamePage/routes";
 
 export const createGamePage = types.model('createGamePage')
 .volatile(() => ({
@@ -18,6 +19,12 @@ export const createGamePage = types.model('createGamePage')
 	isName: false,
 
 	isDownload: false,
+
+	isProblem: false,
+
+	problemBtn: VMButton.create({
+		text: "Далее"
+	}),
 
 	playersField: VMNumberTextField.create({
 		label: "Количество игроков"
@@ -53,12 +60,16 @@ export const createGamePage = types.model('createGamePage')
 			players: Number (self.playersField.value),
 			cards: Number (self.cardField.value)
 		}
-	},
+	}
 	
 }))
 .actions((self) => ({
 	setisForm(value: boolean) {
 		self.isForm = value
+	},
+
+	setinProblem(value: boolean) {
+		self.isProblem = value
 	},
 
 	setISName(value: boolean) {
@@ -86,15 +97,27 @@ export const createGamePage = types.model('createGamePage')
 			downloadFile(text.fileData, filename);
 		}
 		localStorage.setItem('gameData', JSON.stringify(self.gameData));
+	},
+
+	async getKollPlace() {
+		if (self.gameData.players%2) {
+			const kollPlace = (self.gameData.players+1)/2;
+			localStorage.setItem('kollPlace', JSON.stringify(kollPlace));
+		}
+		else {
+			const kollPlace = self.gameData.players/2;
+			localStorage.setItem('kollPlace', JSON.stringify(kollPlace));
+		}
 	}
 }))
 
 .actions((self) => ({
 	// здесь другие методы страницы
 	afterCreate(){
-		self.createBtn.setOnClick(() => {self.setisForm(false), self.setISName(true), console.log(self.gameData)}),
+		self.createBtn.setOnClick(() => {self.setisForm(false), self.setISName(true), self.getKollPlace()}),
 		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true), self.addPlayers()}),
 		self.downloadBtn.setOnClick(() => {self.download()})
+		self.problemBtn.setOnClick(() => {self.setISDownload(false), self.setinProblem(true)})
 	}
 }))
 
