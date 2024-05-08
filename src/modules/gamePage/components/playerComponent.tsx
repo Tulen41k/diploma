@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
         flexDirection: "column",
         marginTop: "10px",
         width: "100%",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         marginLeft: "auto",
         marginRight: "auto",
         alignItems: "center"
@@ -21,6 +21,29 @@ const useStyles = makeStyles(() => ({
         height: "40px",
         marginTop: "5px",
         textAlign: "center"
+    },
+
+    name: {
+        display: "flex",
+        flexDirection: "row",
+        width: "90%"
+    },
+
+    hide: {
+        height: "40px",
+        width: "80px",
+        marginRight: "10px"
+    },
+
+    delete: {
+        height: "585px",
+        width: "90%"
+    },
+
+    status: {
+        height: "100%",
+        width: "50%"
+
     }
 }));
 
@@ -38,6 +61,35 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
     const [showPfact, setShowPfact] = useState<boolean>(false);
     const [showNfact, setShowNfact] = useState<boolean>(false);
     const [showSex, setShowSex] = useState<boolean>(false);
+    const [deletePerson, setDeletePerson] = useState<boolean>(false);
+    const [status, setStatus] = useState<string>('Выгнять');
+
+    const menu = (param: string) => {
+        switch (param) {
+            case "age":
+                break;
+            case "profession":
+                break;
+            case "health":
+                break;
+            case "phobia":
+                break;
+            case "baggage":
+                break;
+            case "character":
+                break;
+            case "hobby":
+                break;
+            case "pfact":
+                break;
+            case "nfact":
+                break;
+            case "sex":
+                break;
+            default:
+                break;
+        }
+    };
 
     const toggleShowAge = () => {
         if(showAge) {}
@@ -129,47 +181,75 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                 }
         }
     };
+    const hidePerson = () => {
+        if(deletePerson) {
+            const confirmMessage = "Вернуть игрока: "+ player.name;
+            if (window.confirm(confirmMessage)) {
+                setDeletePerson(false);
+            }
+            setStatus('Выгнать');
+        }
+        else {
+            const confirmMessage = 'Выгнать игрока ' + player.name;
+            if (window.confirm(confirmMessage)) {
+                setDeletePerson(true);
+            }
+            setStatus('Вернуть');
+        }
+    }
 
     console.log(index);
 
     return (
         <Paper className={styles.container}>
-            <Typography variant="h5" className={styles.value}>{player.name}</Typography>
-            <Paper className={styles.value} onClick={toggleShowAge}>
-                {showAge ? 'Возраст: ' + player.age : 'Возраст'}
+            <Paper className={styles.name}>
+                <Typography variant="h5" className={styles.value}>{player.name}</Typography>
+                <Paper onClick={hidePerson} className={styles.hide}>{status}</Paper>
             </Paper>
-            <Paper className={styles.value} onClick={toggleShowSex}>
-                {showSex ? 'Пол: ' + player.sex : 'Пол'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowProfession}>
-                {showProfession ? 'Профессия: ' + player.profession : 'Профессия'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowProfession}>
-                {showProfession ? 'Стаж: ' + player.stage : 'Стаж'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowHealth}>
-                {showHealth ? 'Здоровье: ' + player.health : 'Здоровье'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowPhobia}>
-                {showPhobia ? 'Фобия: ' + player.phobia : 'Фобия'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowBaggage}>
-                {showBaggage ? 'Багаж: ' + player.baggage : 'Багаж'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowCharacter}>
-                {showCharacter ? 'Характер: ' + player.character : 'Характер'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowHobby}>
-                {showHobby ? 'Хобби: ' + player.hobby : 'Хобби'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowPfact}>
-                {showPfact ? 'Положительный факт: ' + player.pfact : 'Положительный факт'}
-            </Paper>
-            <Paper className={styles.value} onClick={toggleShowNfact}>
-                {showNfact ? 'Отрицательный факт: ' + player.nfact : 'Отрицательный факт'}
-            </Paper>
-            {player.dop.map((card, index) => (
-            <DopCards key={index} card={card}/>))}
+            {deletePerson
+                ? <>
+                    <Paper className={styles.delete}>
+                        <Typography variant="h5" className={styles.status}>Персонаж выгнан</Typography>
+                    </Paper>
+                </>
+                : <>
+                <Paper className={styles.value} onClick={toggleShowAge}>
+                    {showAge ? 'Возраст: ' + player.age : 'Возраст'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowSex}>
+                    {showSex ? 'Пол: ' + player.sex : 'Пол'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowProfession}>
+                    {showProfession ? 'Профессия: ' + player.profession : 'Профессия'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowProfession}>
+                    {showProfession ? 'Стаж: ' + player.stage : 'Стаж'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowHealth}>
+                    {showHealth ? 'Здоровье: ' + player.health : 'Здоровье'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowPhobia}>
+                    {showPhobia ? 'Фобия: ' + player.phobia : 'Фобия'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowBaggage}>
+                    {showBaggage ? 'Багаж: ' + player.baggage : 'Багаж'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowCharacter}>
+                    {showCharacter ? 'Характер: ' + player.character : 'Характер'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowHobby}>
+                    {showHobby ? 'Хобби: ' + player.hobby : 'Хобби'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowPfact}>
+                    {showPfact ? 'Положительный факт: ' + player.pfact : 'Положительный факт'}
+                </Paper>
+                <Paper className={styles.value} onClick={toggleShowNfact}>
+                    {showNfact ? 'Отрицательный факт: ' + player.nfact : 'Отрицательный факт'}
+                </Paper>
+                {player.dop.map((card, index) => (
+                    <DopCards key={index} card={card}/>))}
+                </>
+            }
         </Paper>
     );
 
