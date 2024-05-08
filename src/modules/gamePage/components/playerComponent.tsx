@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const PlayerCard: React.FC<{player: TPlayer}> = ({player}) => {
+const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index}) => {
 
     const styles = useStyles();
 
@@ -130,7 +130,7 @@ const PlayerCard: React.FC<{player: TPlayer}> = ({player}) => {
         }
     };
 
-
+    console.log(index);
 
     return (
         <Paper className={styles.container}>
