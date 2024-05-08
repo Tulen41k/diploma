@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         flexDirection: "column",
         marginTop: "10px",
-        width: "60%",
+        width: "100%",
         justifyContent: "space-around",
         marginLeft: "auto",
         marginRight: "auto",

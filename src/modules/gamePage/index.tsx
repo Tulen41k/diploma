@@ -3,7 +3,7 @@ import { gamePage } from "./models";
 import { Paper, Link} from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
-import createPlayerCards from "./components/createPlayerCards";
+import CreatePlayerCards from "./components/createPlayerCards";
 import VButton from "../../mvvm/Button/VButton";
 import { ProblemDescriprion } from "./components/problemDescription";
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         flexDirection: "row",
         marginTop: "10px",
-        width: "99%",
+        width: "1800px",
         height: "99%",
         justifyContent: "space-around",
         marginLeft: "auto",
@@ -67,7 +67,7 @@ export const GamePage: React.FC = observer(() => {
             }
         </Paper>
         <Paper className={styles.container} elevation={3}>
-            {createPlayerCards()}
+            <CreatePlayerCards/>
         </Paper>
         </>
         
