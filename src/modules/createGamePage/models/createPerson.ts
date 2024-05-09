@@ -1,7 +1,7 @@
 import { getData } from "../../../data/getData";
 import { TPlayer } from "../../../types/TPlayer";
 
-const getRandomItem = <T>(array: T[]): T => {
+export const getRandomItem = <T>(array: T[]): T => {
     const randomItem = Math.floor(Math.random() * array.length);
     return array[randomItem];
 }

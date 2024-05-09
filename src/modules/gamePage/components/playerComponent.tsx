@@ -3,6 +3,8 @@ import React, { FunctionComponent, useState } from "react";
 import { TPlayer } from "../../../types/TPlayer";
 import { makeStyles } from "@material-ui/styles";
 import DopCards from "./createDopCards";
+import { getData } from "../../../data/getData";
+import { getRandomItem } from "../../createGamePage/models/createPerson";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles(() => ({
     },
 
     delete: {
-        height: "585px",
+        height: "100%",
         width: "90%"
     },
 
@@ -44,6 +46,18 @@ const useStyles = makeStyles(() => ({
         height: "100%",
         width: "50%"
 
+    },
+
+    menu: {
+        position: "fixed",
+        margin: "auto",
+        marginTop: "250px",
+        zIndex: 1000,
+        width: "20%"
+    },
+
+    punkt: {
+        height: "40px"
     }
 }));
 
@@ -63,124 +77,138 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
     const [showSex, setShowSex] = useState<boolean>(false);
     const [deletePerson, setDeletePerson] = useState<boolean>(false);
     const [status, setStatus] = useState<string>('Выгнять');
+    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const [selectedAttribute, setSelectedAttribute] = useState<string>("");
 
-    const menu = (param: string) => {
-        switch (param) {
-            case "age":
+    const toggleMenu = (param: string) => {
+        setMenuOpen(!menuOpen);
+        setSelectedAttribute(param);
+    }
+
+    const openPunkt = () => {
+        switch (selectedAttribute) {
+            case "Возраст":
+                setShowAge(true);
+                toggleMenu('');
                 break;
-            case "profession":
+            case "Профессия":
+                setShowProfession(true);
+                toggleMenu('');
                 break;
-            case "health":
+            case "Здоровье":
+                setShowHealth(true);
+                toggleMenu('');
                 break;
-            case "phobia":
+            case "Фобия":
+                setShowPhobia(true);
+                toggleMenu('');
                 break;
-            case "baggage":
+            case "Багаж":
+                setShowBaggage(true);
+                toggleMenu('');
                 break;
-            case "character":
+            case "Характер":
+                setShowCharacter(true);
+                toggleMenu('');
                 break;
-            case "hobby":
+            case "Хобби":
+                setShowHobby(true);
+                toggleMenu('');
                 break;
-            case "pfact":
+            case "Положительный факт":
+                setShowPfact(true);
+                toggleMenu('');
                 break;
-            case "nfact":
+            case "Отрицательный факт":
+                setShowNfact(true);
+                toggleMenu('');
                 break;
-            case "sex":
+            case "Пол":
+                setShowSex(true);
+                toggleMenu('');
                 break;
             default:
                 break;
         }
+    }
+
+    const change = () => {
+        const data = getData('players');
+        const person = data[index];
+        switch (selectedAttribute) {
+            case "Возраст":
+                const age = Math.floor(Math.random() * (99 - 18 + 1) + 18);
+                person.age = age;
+                person.stage = Math.floor(Math.random() * (age-18 + 1));
+                break;
+            case "Профессия":
+                person.profession = getRandomItem(getData('profession'));
+                person.stage = Math.floor(Math.random() * (person.age-18 + 1));
+                break;
+            case "Здоровье":
+                person.health = getRandomItem(getData('health'));
+                break;
+            case "Фобия":
+                person.phobia = getRandomItem(getData('phobia'));
+                break;
+            case "Багаж":
+                person.baggage = getRandomItem(getData('baggage'));
+                break;
+            case "Характер":
+                person.character = getRandomItem(getData('character'));
+                break;
+            case "Хобби":
+                person.hobby = getRandomItem(getData('hobby'));
+                break;
+            case "Положительный факт":
+                person.pfact = getRandomItem(getData('pfact'));
+                break;
+            case "Отрицательный факт":
+                person.nfact = getRandomItem(getData('nfact'));
+                break;
+            case "Пол":
+                person.sex = getRandomItem(getData(''));
+                break;
+            default:
+                break;
+        }
+        player = person;
+        data[index] = person;
+        localStorage.setItem('players', JSON.stringify(data));
+    }
+
+    const deleteChar = () => {
+        const data = getData('players');
+        switch (selectedAttribute) {
+            case "Возраст":
+                break;
+            case "Профессия":
+                break;
+            case "Здоровье":
+                player.health = 'Здоров';
+                break;
+            case "Фобия":
+                break;
+            case "Багаж":
+                player.baggage ="Нет багажа";
+                break;
+            case "Характер":
+                break;
+            case "Хобби":
+                break;
+            case "Положительный факт":
+                break;
+            case "Отрицательный факт":
+                break;
+            case "Пол":
+                break;
+            default:
+                break;
+        }
+        data[index] = player;
+        localStorage.setItem('players', JSON.stringify(data));
     };
 
-    const toggleShowAge = () => {
-        if(showAge) {}
-            else {
-                const confirmMessage = 'Открыть возраст для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowAge(true);
-                }
-        }
-    };
-    const toggleShowProfession = () => {
-        if(showProfession) {}
-        else {
-            const confirmMessage = 'Открыть профессию для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowProfession(true);
-                }
-        }
-    };
-    const toggleShowHealth = () => {
-        if(showHealth) {}
-        else {
-            const confirmMessage = 'Открыть здоровье для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowHealth(true);
-                }
-        }
-    };
-    const toggleShowPhobia = () => {
-        if(showPhobia) {}
-        else {
-            const confirmMessage = 'Открыть фобию для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowPhobia(true);
-                }
-        }
-    };
-    const toggleShowBaggage = () => {
-        if(showBaggage) {}
-        else {
-            const confirmMessage = 'Открыть багаж для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowBaggage(true);
-                }
-        }
-    };
-    const toggleShowCharacter = () => {
-        if(showCharacter) {}
-        else {
-            const confirmMessage = 'Открыть характер для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowCharacter(true);
-                }
-        }
-    };
-    const toggleShowHobby = () => {
-        if(showHobby) {}
-        else {
-            const confirmMessage = 'Открыть хобби для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowHobby(true);
-                }
-        }
-    };
-    const toggleShowPfact = () => {
-        if(showPfact) {}
-        else {
-            const confirmMessage = 'Открыть положительный факт для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowPfact(true);
-                }
-        }
-    };
-    const toggleShowNfact = () => {
-        if(showNfact) {}
-        else {
-            const confirmMessage = 'Открыть отрицательный факт для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowNfact(true);
-                }
-        }
-    };
-    const toggleShowSex = () => {
-        if(showSex) {}
-        else {
-            const confirmMessage = 'Открыть пол для игрока ' + player.name;
-                if (window.confirm(confirmMessage)) {
-                    setShowSex(true);
-                }
-        }
-    };
     const hidePerson = () => {
         if(deletePerson) {
             const confirmMessage = "Вернуть игрока: "+ player.name;
@@ -198,10 +226,18 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
         }
     }
 
-    console.log(index);
-
     return (
         <Paper className={styles.container}>
+            {menuOpen
+                ? <Paper className={styles.menu}>
+                    <Typography className={styles.punkt} variant="h6">{selectedAttribute}</Typography>
+                    <Paper className={styles.punkt} onClick={openPunkt}>Открыть характеристику</Paper>
+                    <Paper className={styles.punkt} onClick={change}>Изменить характеристику на случайную</Paper>
+                    <Paper className={styles.punkt} onClick={deleteChar}>Удалить характеристику</Paper>
+                    <Paper className={styles.punkt} onClick={() => toggleMenu('')}>Закрыть</Paper>
+                </Paper>
+                : <></>
+            }
             <Paper className={styles.name}>
                 <Typography variant="h5" className={styles.value}>{player.name}</Typography>
                 <Paper onClick={hidePerson} className={styles.hide}>{status}</Paper>
@@ -213,37 +249,37 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                     </Paper>
                 </>
                 : <>
-                <Paper className={styles.value} onClick={toggleShowAge}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Возраст')}>
                     {showAge ? 'Возраст: ' + player.age : 'Возраст'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowSex}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Пол')}>
                     {showSex ? 'Пол: ' + player.sex : 'Пол'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowProfession}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Профессия')}>
                     {showProfession ? 'Профессия: ' + player.profession : 'Профессия'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowProfession}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Профессия')}>
                     {showProfession ? 'Стаж: ' + player.stage : 'Стаж'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowHealth}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Здоровье')}>
                     {showHealth ? 'Здоровье: ' + player.health : 'Здоровье'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowPhobia}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Фобия')}>
                     {showPhobia ? 'Фобия: ' + player.phobia : 'Фобия'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowBaggage}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Багаж')}>
                     {showBaggage ? 'Багаж: ' + player.baggage : 'Багаж'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowCharacter}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Характер')}>
                     {showCharacter ? 'Характер: ' + player.character : 'Характер'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowHobby}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Хобби')}>
                     {showHobby ? 'Хобби: ' + player.hobby : 'Хобби'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowPfact}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Положительный факт')}>
                     {showPfact ? 'Положительный факт: ' + player.pfact : 'Положительный факт'}
                 </Paper>
-                <Paper className={styles.value} onClick={toggleShowNfact}>
+                <Paper className={styles.value} onClick={() => toggleMenu('Отрицательный факт')}>
                     {showNfact ? 'Отрицательный факт: ' + player.nfact : 'Отрицательный факт'}
                 </Paper>
                 {player.dop.map((card, index) => (
