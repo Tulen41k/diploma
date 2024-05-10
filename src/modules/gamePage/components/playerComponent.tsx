@@ -223,6 +223,8 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                 setDeletePerson(false);
             }
             setStatus('Выгнать');
+            player.win = true;
+            changePerson(index, player);
             addInGame();
         }
         else {
@@ -231,6 +233,8 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                 setDeletePerson(true);
             }
             setStatus('Вернуть');
+            player.win = false;
+            changePerson(index, player);
             deleteInGame();
         }
     };

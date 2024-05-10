@@ -31,7 +31,8 @@ export const createPerson = (name: string, cards: number): TPlayer => {
         hobby: getRandomItem(getData('hobby')),
         pfact: getRandomItem(getData('pfact')),
         nfact: getRandomItem(getData('nfact')),
-        dop: getCards(cards)
+        dop: getCards(cards),
+        win: true
     }
 
     return newPlayer;

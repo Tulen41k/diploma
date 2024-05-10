@@ -14,5 +14,6 @@ export type TPlayer = {
     hobby: string;
     pfact: string;
     nfact: string;
-    dop: TDop[]
+    dop: TDop[];
+    win: boolean
 }

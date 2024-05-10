@@ -6,10 +6,7 @@ import { observer } from "mobx-react-lite";
 import CreatePlayerCards from "./components/createPlayerCards";
 import VButton from "../../mvvm/Button/VButton";
 import { ProblemDescriprion } from "./components/problemDescription";
-import { useState } from "react";
-import { getData } from "../../data/getData";
 import React from "react";
-import { ReactDOM } from "react";
 
 
 const useStyles = makeStyles(() => ({

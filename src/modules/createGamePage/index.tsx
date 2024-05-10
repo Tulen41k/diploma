@@ -6,10 +6,8 @@ import { observer } from "mobx-react-lite";
 import VTextField from "../../mvvm/TextField/VTextField";
 import VButton from "../../mvvm/Button/VButton";
 import React from "react";
-import { TGameData } from "../../types/TGameData";
 import { useState } from "react";
 import { createTextFieldModels } from "./models/createTextFieldModels";
-import { createArrayPlayers } from "./models/createArrayPlayers";
 import { ProblemDescriprion } from "./models/problemDescription";
 
 const useStyles = makeStyles(() => ({
