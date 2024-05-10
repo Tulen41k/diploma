@@ -46,9 +46,9 @@ const CreatePlayerCards: React.FC<{}> = ({}) =>{
 
             
             {[...Array(string)].map((_,rowIndex) => (
-                <div className={styles.container}>
+                <div key={rowIndex} className={styles.container}>
                     {getPlayersForRow(rowIndex).map((player, index) => (
-                        <PlayerCard index={(index+(rowIndex*3))} player={player}/>
+                        <PlayerCard key={index} index={(index+(rowIndex*3))} player={player}/>
                     ))}
                 </div>
             ))}

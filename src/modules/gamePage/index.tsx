@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import { gamePage } from "./models";
-import { Paper, Link} from "@mui/material";
+import { Paper, Link, Typography} from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
 import CreatePlayerCards from "./components/createPlayerCards";
 import VButton from "../../mvvm/Button/VButton";
 import { ProblemDescriprion } from "./components/problemDescription";
+import { useState } from "react";
+import { getData } from "../../data/getData";
+import React from "react";
+import { ReactDOM } from "react";
+
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -38,37 +43,71 @@ const useStyles = makeStyles(() => ({
         width: "50px",
         marginTop: "10px",
         textAlign: "center"
+    },
+    end: {
+        display: "flex",
+        flexDirection: "column",
+        marginTop: "100px",
+        alignItems: "center"
+    },
+
+    link: {
+        width: "20%",
+        height: "50px",
+        backgroundColor: "#B0C4DE",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-around",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: "10px"
     }
+
 }));
 
+
+
 export const GamePage: React.FC = observer(() => {
-    const { start, kollPlace, problemBtn, isProblem, addBtn, deleteBtn} = gamePage;
+    const { start, kollPlace, problemBtn, isProblem, addBtn, deleteBtn, status} = gamePage;
     useEffect(() => {
         start();
     }, []);
 
     const styles = useStyles();
 
+
     return (
-        <>
-        <Paper className={styles.header}>
-            <div className={styles.params}>
-            <VButton model={problemBtn}></VButton>
-            <div className={styles.koll}>
-            <VButton model={deleteBtn}></VButton>
-            <Paper className={styles.kollPlace}>{kollPlace}</Paper>
-            <VButton model={addBtn}></VButton>
-            </div>
-            </div>
-            {isProblem
-            ? <ProblemDescriprion/>
-            :
-            <></>
-            }
-        </Paper>
-        <Paper className={styles.container} elevation={3}>
-            <CreatePlayerCards/>
-        </Paper>
+        
+        <>{
+            status
+            ? <> 
+            <Paper className={styles.header}>
+                <div className={styles.params}>
+                    <VButton model={problemBtn}></VButton>
+                    <div className={styles.koll}>
+                        <VButton model={deleteBtn}></VButton>
+                        <Paper className={styles.kollPlace}>{kollPlace}</Paper>
+                        <VButton model={addBtn}></VButton>
+                    </div>
+                </div>
+                {isProblem
+                ? <ProblemDescriprion/>
+                :
+                <></>
+                }
+            </Paper>
+            <Paper className={styles.container} elevation={3}>
+                <CreatePlayerCards/>
+            </Paper>
+            </>
+            : <>
+                <Paper className={styles.end}>
+                    <Typography variant="h4">Игра окончена</Typography>
+                    <Link className={styles.link} href={'/result'}>Перейти к результатам</Link>
+                </Paper>
+            </>
+        }
         </>
         
     );

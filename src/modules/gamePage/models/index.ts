@@ -1,6 +1,5 @@
 import { types } from "mobx-state-tree";
 import { getData } from "../../../data/getData";
-import { TGameData } from "../../../types/TGameData";
 import VMButton from "../../../mvvm/Button/VMButton";
 
 export const gamePage = types.model('gamePage')
@@ -8,7 +7,7 @@ export const gamePage = types.model('gamePage')
 	// здесь будут модели компонентов страницы
 	isProblem: true,
 
-	kollPlace: getData('kollPlace'),
+	kollPlace: 0,
 
 	problemBtn: VMButton.create({
 		text: "Катастрофа"
@@ -20,13 +19,31 @@ export const gamePage = types.model('gamePage')
 
 	deleteBtn: VMButton.create ({
 		text: "-"
-	})
+	}),
+
+	status: true,
+
+	inGame: 0
 
 }))
 .views(() => ({
 }))
 .actions((self) => ({
 	// здесь другие
+	checkStatus() {
+		self.status = (self.inGame > parseInt(getData('kollPlace')));
+	},
+	addInGame() {
+		self.inGame = self.inGame + 1;
+		this.checkStatus();
+		console.log(self.inGame);
+	},
+	deleteInGame() {
+		self.inGame = self.inGame - 1;
+		console.log(self.inGame);
+		this.checkStatus();
+		console.log(self.status);
+	},
 	setisProblem() {
 		self.isProblem = !self.isProblem;
 	},
@@ -37,18 +54,23 @@ export const gamePage = types.model('gamePage')
 	async deletePlace() {
 		self.kollPlace = self.kollPlace -1;
 		localStorage.setItem('kollPlace', JSON.stringify(self.kollPlace));
+		
 	}
 }))
 .actions((self) => ({
 	// здесь другие методы страницы
 	afterCreate(){
 		self.problemBtn.setOnClick(() => {self.setisProblem()});
-		self.addBtn.setOnClick(()=> {self.addPlace()});
-		self.deleteBtn.setOnClick(()=> {self.deletePlace()})
+		self.addBtn.setOnClick(()=> {self.addPlace(), self.checkStatus()});
+		self.deleteBtn.setOnClick(()=> {self.deletePlace(), self.checkStatus()})
 	}
 }))
-.actions(() => ({
+.actions((self) => ({
 	start() {
+
+		self.kollPlace = parseInt(getData('kollPlace')),
+		self.inGame = getData('players').length,
+		console.log(self.inGame)
 		
 	},
 }))

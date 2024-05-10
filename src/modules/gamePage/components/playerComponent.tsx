@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/styles";
 import DopCards from "./createDopCards";
 import { getData } from "../../../data/getData";
 import { getRandomItem } from "../../createGamePage/models/createPerson";
+import { gamePage } from "../models";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -63,6 +65,11 @@ const useStyles = makeStyles(() => ({
 
 const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index}) => {
 
+    const { start, addInGame, deleteInGame} = gamePage;
+    useEffect(() => {
+        start();
+    }, []);
+
     const styles = useStyles();
 
     const [showAge, setShowAge] = useState<boolean>(false);
@@ -83,7 +90,7 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
     const toggleMenu = (param: string) => {
         setMenuOpen(!menuOpen);
         setSelectedAttribute(param);
-    }
+    };
 
     const openPunkt = () => {
         switch (selectedAttribute) {
@@ -130,7 +137,7 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
             default:
                 break;
         }
-    }
+    };
 
     const change = () => {
         const data = getData('players');
@@ -175,7 +182,7 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
         player = person;
         data[index] = person;
         localStorage.setItem('players', JSON.stringify(data));
-    }
+    };
 
     const deleteChar = () => {
         const data = getData('players');
@@ -216,6 +223,7 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                 setDeletePerson(false);
             }
             setStatus('Выгнать');
+            addInGame();
         }
         else {
             const confirmMessage = 'Выгнать игрока ' + player.name;
@@ -223,8 +231,9 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                 setDeletePerson(true);
             }
             setStatus('Вернуть');
+            deleteInGame();
         }
-    }
+    };
 
     return (
         <Paper className={styles.container}>

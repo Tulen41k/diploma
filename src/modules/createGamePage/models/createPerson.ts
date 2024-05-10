@@ -8,7 +8,6 @@ export const getRandomItem = <T>(array: T[]): T => {
 
 const getCards = (cards: number) => {
     const dop = Array.from({length: cards}, () => getRandomItem(getData('dop')));
-    console.log(dop);
     return dop;
 }
 
