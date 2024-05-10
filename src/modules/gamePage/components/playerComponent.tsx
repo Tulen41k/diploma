@@ -65,7 +65,7 @@ const useStyles = makeStyles(() => ({
 
 const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index}) => {
 
-    const { start, addInGame, deleteInGame} = gamePage;
+    const { start, addInGame, deleteInGame, changePerson} = gamePage;
     useEffect(() => {
         start();
     }, []);
@@ -180,8 +180,8 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
                 break;
         }
         player = person;
-        data[index] = person;
-        localStorage.setItem('players', JSON.stringify(data));
+        changePerson(index, person);
+        setMenuOpen(false);
     };
 
     const deleteChar = () => {
@@ -212,8 +212,8 @@ const PlayerCard: React.FC<{player: TPlayer, index: number}> = ({player, index})
             default:
                 break;
         }
-        data[index] = player;
-        localStorage.setItem('players', JSON.stringify(data));
+        changePerson(index, player);
+        setMenuOpen(false);
     };
 
     const hidePerson = () => {

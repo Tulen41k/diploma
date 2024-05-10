@@ -1,6 +1,7 @@
 import { types } from "mobx-state-tree";
 import { getData } from "../../../data/getData";
 import VMButton from "../../../mvvm/Button/VMButton";
+import { TPlayer } from "../../../types/TPlayer";
 
 export const gamePage = types.model('gamePage')
 .volatile(() => ({
@@ -23,7 +24,9 @@ export const gamePage = types.model('gamePage')
 
 	status: true,
 
-	inGame: 0
+	inGame: 0,
+	
+	data: getData('players')
 
 }))
 .views(() => ({
@@ -55,6 +58,11 @@ export const gamePage = types.model('gamePage')
 		self.kollPlace = self.kollPlace -1;
 		localStorage.setItem('kollPlace', JSON.stringify(self.kollPlace));
 		
+	},
+	changePerson(index: number, person: TPlayer){
+		self.data[index]=person;
+		localStorage.setItem('players', JSON.stringify(self.data))
+		self.data = getData('players');
 	}
 }))
 .actions((self) => ({
@@ -70,7 +78,7 @@ export const gamePage = types.model('gamePage')
 
 		self.kollPlace = parseInt(getData('kollPlace')),
 		self.inGame = getData('players').length,
-		console.log(self.inGame)
+		self.data = getData('players')
 		
 	},
 }))

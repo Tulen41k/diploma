@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => ({
 
 
 export const GamePage: React.FC = observer(() => {
-    const { start, kollPlace, problemBtn, isProblem, addBtn, deleteBtn, status} = gamePage;
+    const { start, data, kollPlace, problemBtn, isProblem, addBtn, deleteBtn, status} = gamePage;
     useEffect(() => {
         start();
     }, []);
