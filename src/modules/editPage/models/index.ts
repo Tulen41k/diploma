@@ -61,7 +61,7 @@ export const editPage = types.model('editPage')
 		label: "Введите значение новой характеристики"
 	}),
 
-	readSelect: VMSelect.create({
+	readComplete: VMSelect.create({
 		label: "Существующие характеристики",
 		options: []
 
@@ -86,7 +86,7 @@ export const editPage = types.model('editPage')
 	deleteSelect:VMSelect.create({
 		label: "Выберите характеристику",
 		options: []
-	})
+	}),
 }))
 .views(() => ({
 
@@ -113,18 +113,20 @@ export const editPage = types.model('editPage')
 .actions((self) => ({
 	async fetchSelect() {
 		const data = getData(self.isPage);
-		self.readSelect.setOptions(data);
+		self.readComplete.setOptions(data);
 		
 	},
 
 	async addValue(value: string) {
 		putData(self.isPage, value);
+		this.fetchSelect();
 		
 	},
 
 	async deleteValue (value: string) {
 		console.log(value);
 		deleteData(self.isPage, value);
+		this.fetchSelect();
 	},
 
 	async select() {

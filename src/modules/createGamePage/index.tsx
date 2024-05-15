@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { createGamePage } from "./models";
-import { Paper, Link, Typography, TextField, Button} from "@mui/material";
+import { Paper, Link, Typography} from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
 import VTextField from "../../mvvm/TextField/VTextField";
@@ -9,6 +9,9 @@ import React from "react";
 import { useState } from "react";
 import { createTextFieldModels } from "./models/createTextFieldModels";
 import { ProblemDescriprion } from "./models/problemDescription";
+import { names } from "../../data/data";
+import { getData } from "../../data/getData";
+import { AutoCompleteInput } from "./models/AutoCompleteInput";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -41,6 +44,16 @@ const useStyles = makeStyles(() => ({
         marginRight: "auto",
         marginBottom: "10px"
     },
+
+    btn: {
+        width: "15%",
+        height: "50px",
+        backgroundColor: "#B0C4DE",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingTop: "15px"
+    }
 }));
 
 
@@ -63,6 +76,20 @@ export const CreateGamePage: React.FC = observer(() => {
         setTextFieldModels(updatedTextFieldModels);
         localStorage.setItem('names', JSON.stringify(textFieldModels));
     }
+
+    const randomInput = () => {
+        const updatedTextFieldModels = [... textFieldModels];
+        const name = names;
+        updatedTextFieldModels.forEach((field, index) => {
+            const randomIndex = Math.floor(Math.random() * name.length);
+            const randomName = name.splice(randomIndex, 1)[0];
+            field.value = randomName;
+        })
+        setTextFieldModels(updatedTextFieldModels);
+        localStorage.setItem('names', JSON.stringify(textFieldModels));
+        
+    }
+
 
     return (
         <Paper className={styles.global} elevation={3}>
@@ -90,13 +117,15 @@ export const CreateGamePage: React.FC = observer(() => {
                         <div className={styles.container}>
                             <Typography variant="h4">Введите имена игроков</Typography>
                             {textFieldModels.map((textFieldModel, index) => (
-                                <TextField
+                                <AutoCompleteInput
                                 key={index}
-                                label='Имя игрока'
-                                value={textFieldModel.value}
-                                onChange={(e) => handleInputChange(index, e.target.value)}
+                                textFieldModel={textFieldModel}
+                                index={index}
+                                handleInputChange={handleInputChange}
+                                usedNames={getData('usedNames')}
                                 />
                             ))}
+                            <Paper className={styles.btn} elevation={3} onClick={() => randomInput()}>Придумать имена</Paper>
                             <VButton model={readyBtn}/>
                         </div>
                     </>

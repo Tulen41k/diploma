@@ -8,11 +8,12 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     width: "90%",
-    height: "100px",
+    height: "130px",
     justifyContent: "space-around",
     marginLeft: "auto",
     marginRight: "auto",
-    alignItems: "center"
+    alignItems: "center",
+    paddingBottom: "10px"
   }
 
 }))
@@ -20,6 +21,7 @@ const useStyles = makeStyles(() => ({
 export const ProblemDescriprion: React.FC<{}> = () => {
 
     const problem = getData('problem');
+    const fact = getData('bFact');
     const styles = useStyles();
 
     return (
@@ -27,6 +29,7 @@ export const ProblemDescriprion: React.FC<{}> = () => {
           <Typography variant="h6">{problem.name}</Typography>
           <p>{problem.description}</p>
           <p>{problem.final}</p>
+          <p>{fact}</p>
         </div>
       );
 }

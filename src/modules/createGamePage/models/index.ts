@@ -3,12 +3,10 @@ import VMNumberTextField from "../../../mvvm/TextField/VMNumberTextField";
 import VMButton from "../../../mvvm/Button/VMButton";
 import VMTextField from "../../../mvvm/TextField/VMTextField";
 import { TGameData } from "../../../types/TGameData";
-import { TPlayer } from "../../../types/TPlayer";
 import { createArrayPlayers } from "./createArrayPlayers";
 import { getData } from "../../../data/getData";
 import { createDataForFiles } from "./createDataForFile";
 import { downloadFile } from "./downloadFile";
-import { gamePage } from "../../gamePage/routes";
 
 export const createGamePage = types.model('createGamePage')
 .volatile(() => ({
@@ -50,6 +48,10 @@ export const createGamePage = types.model('createGamePage')
 
 	downloadBtn: VMButton.create({
 		text: 'Скачать характеристики'
+	}),
+
+	randomBtn: VMButton.create({
+		text: "Придумать имена"
 	})
 
 
@@ -81,7 +83,6 @@ export const createGamePage = types.model('createGamePage')
 	},
 	async addPlayers() {
 		const raw = getData('names');
-		console.log(raw);
 		const players = createArrayPlayers(raw, self.gameData.cards);
 		localStorage.setItem('players', JSON.stringify(players));
 	},
@@ -91,9 +92,6 @@ export const createGamePage = types.model('createGamePage')
 		for (let i = 0; i < players.length; i++) {
 			const text = createDataForFiles(i);
 			const filename = players[i].name;
-			console.log(text);
-			console.log(typeof text);
-			console.log(filename);
 			downloadFile(text.fileData, filename);
 		}
 		localStorage.setItem('gameData', JSON.stringify(self.gameData));
@@ -108,6 +106,21 @@ export const createGamePage = types.model('createGamePage')
 			const kollPlace = self.gameData.players/2;
 			localStorage.setItem('kollPlace', JSON.stringify(kollPlace));
 		}
+	},
+	saveNames() {
+		const names = getData('names');
+		console.log('Names:', names);
+		const usedNames = getData('usedNames');
+		console.log('Used Names:', usedNames);
+
+    	const namesValues = names.map(item => item.value.trim());
+    	const usedNamesValues = usedNames.map(item => item.trim());
+
+    	// Объединяем и удаляем дубликаты
+    	const combinedNames = Array.from(new Set([...namesValues, ...usedNamesValues]));
+    	console.log('Combined:', combinedNames);
+		
+		localStorage.setItem('usedNames', JSON.stringify(combinedNames));
 	}
 }))
 
@@ -117,7 +130,7 @@ export const createGamePage = types.model('createGamePage')
 		self.createBtn.setOnClick(() => {self.setisForm(false), self.setISName(true), self.getKollPlace()}),
 		self.readyBtn.setOnClick(() => {self.setISName(false), self.setISDownload(true), self.addPlayers()}),
 		self.downloadBtn.setOnClick(() => {self.download()})
-		self.problemBtn.setOnClick(() => {self.setISDownload(false), self.setinProblem(true)})
+		self.problemBtn.setOnClick(() => {self.setISDownload(false), self.setinProblem(true), self.saveNames()})
 	}
 }))
 

@@ -34,7 +34,9 @@ const useStyles = makeStyles(() => ({
     },
     koll: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        justifyContent: "space-around",
+        width: "20%"
     },
     kollPlace: {
         width: "50px",
@@ -59,6 +61,10 @@ const useStyles = makeStyles(() => ({
         marginLeft: "auto",
         marginRight: "auto",
         marginBottom: "10px"
+    },
+
+    text: {
+        paddingTop: "10px"
     }
 
 }));
@@ -83,6 +89,7 @@ export const GamePage: React.FC = observer(() => {
                 <div className={styles.params}>
                     <VButton model={problemBtn}></VButton>
                     <div className={styles.koll}>
+                        <p className={styles.text}>Количество мест в бункере:</p>
                         <VButton model={deleteBtn}></VButton>
                         <Paper className={styles.kollPlace}>{kollPlace}</Paper>
                         <VButton model={addBtn}></VButton>

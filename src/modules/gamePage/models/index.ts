@@ -2,6 +2,7 @@ import { types } from "mobx-state-tree";
 import { getData } from "../../../data/getData";
 import VMButton from "../../../mvvm/Button/VMButton";
 import { TPlayer } from "../../../types/TPlayer";
+import { string } from "mobx-state-tree/dist/internal";
 
 export const gamePage = types.model('gamePage')
 .volatile(() => ({

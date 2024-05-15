@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { editPage } from "./models";
-import { Paper, Link, Typography, Select, MenuItem} from "@mui/material";
+import { Paper, Link, Typography} from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { makeStyles } from "@material-ui/styles";
 import VButton from "../../mvvm/Button/VButton";
-import { baggage, character, health, hobby, nfact, pfact, phobia, professions } from "../../data/data";
 import VTextField from "../../mvvm/TextField/VTextField";
 import VSelect from "../../mvvm/Select/VSelect";
+import VAutocomplete from "../../mvvm/Autocomplete/VAutocomplete";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
 
 
 export const EditPage: React.FC = observer(() => {
-    const {start, isAdd, isDelete, saveDeleteBtn, deleteSelect, deleteBtn, saveBtn, addBtn, professionBtn, healfBtn, phobiaBtn, baggageBtn, chatacterBtn, hobbyBtn, pfactBtn, nfactBtn, isHome, returnBtn, isPage, addField, namePage, readSelect} = editPage;
+    const {start, isAdd, isDelete, saveDeleteBtn, deleteSelect, deleteBtn, saveBtn, addBtn, professionBtn, healfBtn, phobiaBtn, baggageBtn, chatacterBtn, hobbyBtn, pfactBtn, nfactBtn, isHome, returnBtn, isPage, addField, namePage, readComplete} = editPage;
     useEffect(() => {
         start();
     }, []);
@@ -89,7 +89,7 @@ export const EditPage: React.FC = observer(() => {
                         <Typography variant="h4">
                         {namePage}
                         </Typography>
-                        <VSelect className={styles.select} model={readSelect}/>
+                        <VAutocomplete className={styles.select} model={readComplete}/>
                         {isDelete
                             ? <>
                             <VSelect model={deleteSelect}/>

@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { problem } from "../../../data/data";
+import { fact, problem } from "../../../data/data";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
@@ -19,6 +19,8 @@ const useStyles = makeStyles(() => ({
 
 export const ProblemDescriprion: React.FC<{}> = () => {
     const randomProblem = problem[Math.floor(Math.random() * problem.length)];
+    const randomFact = fact[Math.floor(Math.random()*fact.length)];
+    localStorage.setItem('bFact', JSON.stringify(randomFact));
     localStorage.setItem('problem', JSON.stringify(randomProblem));
     const styles = useStyles();
     
@@ -27,6 +29,7 @@ export const ProblemDescriprion: React.FC<{}> = () => {
           <Typography variant="h5">{randomProblem.name}</Typography>
           <p>{randomProblem.description}</p>
           <p>{randomProblem.final}</p>
+          <p>{randomFact}</p>
         </div>
       );
 }

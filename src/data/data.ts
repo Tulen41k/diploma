@@ -1006,6 +1006,24 @@ export const fact: string[] = [
     "В бункере достаточно еды и воды на первое время, но при этом необходим капитальный ремонт."
 ]
 
+export const names: string[] =[
+    "Воин света",
+    "Агент 007",
+    "Тор",
+    "Существо",
+    "Подводник",
+    "Алексей",
+    "Китти",
+    "Кисель",
+    "Комета",
+    "Андрей",
+    "Виктор",
+    "Любовь",
+    "Вера",
+    "Надежда",
+    "Анатолий"
+]
+
 //localStorage.setItem('professions', JSON.stringify(professions));
 //localStorage.setItem('health', JSON.stringify(health));
 //localStorage.setItem('phobia', JSON.stringify(phobia));

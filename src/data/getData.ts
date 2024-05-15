@@ -57,6 +57,14 @@ export const getData = (value: string) => {
 				raw = localStorage.getItem('kollPlace');
 				raw = JSON.parse(raw);
 				break;
+			case "bFact":
+				raw = localStorage.getItem('bFact');
+				raw = JSON.parse(raw);
+				break;
+			case "usedNames":
+				raw = localStorage.getItem('usedNames');
+				raw = JSON.parse(raw);
+				break;
 			default:
 				break;
 		}
