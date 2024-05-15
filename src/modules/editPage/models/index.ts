@@ -1,12 +1,10 @@
 import { types } from "mobx-state-tree";
 import VMButton from "../../../mvvm/Button/VMButton";
 import VMTextField from "../../../mvvm/TextField/VMTextField";
-import VMSelect from "../../../mvvm/Select/VMSelect";
-import { string } from "mobx-state-tree/dist/internal";
-import { baggage, character, health, hobby, nfact, pfact, phobia, professions } from "../../../data/data";
 import { getData } from "../../../data/getData";
 import { putData } from "../../../data/putData";
 import { deleteData } from "../../../data/deleteData";
+import VMAutocomplete from "../../../mvvm/Autocomplete/VMAutocomplete";
 
 export const editPage = types.model('editPage')
 .volatile(() => ({
@@ -61,7 +59,7 @@ export const editPage = types.model('editPage')
 		label: "Введите значение новой характеристики"
 	}),
 
-	readComplete: VMSelect.create({
+	readComplete: VMAutocomplete.create({
 		label: "Существующие характеристики",
 		options: []
 
@@ -83,7 +81,7 @@ export const editPage = types.model('editPage')
 		text: "Удалить"
 	}),
 
-	deleteSelect:VMSelect.create({
+	deleteSelect:VMAutocomplete.create({
 		label: "Выберите характеристику",
 		options: []
 	}),
@@ -149,7 +147,7 @@ export const editPage = types.model('editPage')
 		self.addBtn.setOnClick(() => {self.setisAdd(true)})
 		self.saveBtn.setOnClick(() => {self.setisAdd(false), self.addValue(self.addField.value), console.log(self.addField.value), self.fetchSelect()})
 		self.deleteBtn.setOnClick(() => {self.select(), self.setisDelete(true)})
-		self.saveDeleteBtn.setOnClick(() => {self.deleteValue(self.deleteSelect.selected.value), self.setisDelete(false)})
+		self.saveDeleteBtn.setOnClick(() => {self.deleteValue(self.deleteSelect.value), self.setisDelete(false)})
 	}
 }))
 .actions(() => ({

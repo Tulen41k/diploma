@@ -24,7 +24,10 @@ const VMAutocomplete = types.model('VMAutocomplete', {
 	},
     setValue(value: string) {
 		self.value = value;
-	}
+	},
+    setOptions(value: string[]) {
+		self.options = value;
+    }
 }))
 .actions((self) => ({
 	onChange(value: string) {
