@@ -1,3 +1,4 @@
+import { deleteData } from "../../../data/deleteData";
 import { getData } from "../../../data/getData";
 import { TPlayer } from "../../../types/TPlayer";
 
@@ -8,9 +9,9 @@ export const getRandomItem = <T>(array: T[]): T => {
 
 const getCards = (cards: number) => {
     const dop = Array.from({length: cards}, () => getRandomItem(getData('dop')));
+    deleteData('dop', dop);
     return dop;
 }
-
 
 
 const sex = ['мужской', 'женский'];
@@ -34,6 +35,19 @@ export const createPerson = (name: string, cards: number): TPlayer => {
         dop: getCards(cards),
         win: true
     }
+
+
+const del = () => {
+    deleteData('profession', newPlayer.profession);
+    deleteData('health', newPlayer.health);
+    deleteData('phobia', newPlayer.phobia);
+    deleteData('baggage', newPlayer.baggage);
+    deleteData('character', newPlayer.character);
+    deleteData('hobby', newPlayer.hobby);
+    deleteData('pfact', newPlayer.pfact);
+    deleteData('nfact', newPlayer.nfact);
+}
+
 
     return newPlayer;
 }

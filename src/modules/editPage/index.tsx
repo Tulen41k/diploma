@@ -92,7 +92,7 @@ export const EditPage: React.FC = observer(() => {
                         <VAutocomplete className={styles.select} model={readComplete}/>
                         {isDelete
                             ? <>
-                            <VAutocomplete model={deleteSelect}/>
+                            <VAutocomplete className={styles.select} model={deleteSelect}/>
                             <VButton model={saveDeleteBtn}/>
                             </>
                             : <VButton model={deleteBtn}/>
