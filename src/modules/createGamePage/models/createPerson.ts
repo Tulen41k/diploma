@@ -35,19 +35,18 @@ export const createPerson = (name: string, cards: number): TPlayer => {
         dop: getCards(cards),
         win: true
     }
-
-
-const del = () => {
-    deleteData('profession', newPlayer.profession);
-    deleteData('health', newPlayer.health);
-    deleteData('phobia', newPlayer.phobia);
-    deleteData('baggage', newPlayer.baggage);
-    deleteData('character', newPlayer.character);
-    deleteData('hobby', newPlayer.hobby);
-    deleteData('pfact', newPlayer.pfact);
-    deleteData('nfact', newPlayer.nfact);
+    const del = () => {
+        deleteData('profession', newPlayer.profession);
+        deleteData('health', newPlayer.health);
+        deleteData('phobia', newPlayer.phobia);
+        deleteData('baggage', newPlayer.baggage);
+        deleteData('character', newPlayer.character);
+        deleteData('hobby', newPlayer.hobby);
+        deleteData('pfact', newPlayer.pfact);
+        deleteData('nfact', newPlayer.nfact);
+        newPlayer.dop.forEach((value) => {
+            deleteData('dop', value);
+        });
 }
-
-
     return newPlayer;
 }

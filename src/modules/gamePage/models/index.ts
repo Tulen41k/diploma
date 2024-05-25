@@ -40,13 +40,10 @@ export const gamePage = types.model('gamePage')
 	addInGame() {
 		self.inGame = self.inGame + 1;
 		this.checkStatus();
-		console.log(self.inGame);
 	},
 	deleteInGame() {
 		self.inGame = self.inGame - 1;
-		console.log(self.inGame);
 		this.checkStatus();
-		console.log(self.status);
 	},
 	setisProblem() {
 		self.isProblem = !self.isProblem;

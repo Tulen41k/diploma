@@ -112,7 +112,6 @@ export const editPage = types.model('editPage')
 	async fetchSelect() {
 		const data = getData(self.isPage);
 		self.readComplete.setOptions(data);
-		
 	},
 
 	async addValue(value: string) {
@@ -122,7 +121,6 @@ export const editPage = types.model('editPage')
 	},
 
 	async deleteValue (value: string) {
-		console.log(value);
 		deleteData(self.isPage, value);
 		this.fetchSelect();
 	},
